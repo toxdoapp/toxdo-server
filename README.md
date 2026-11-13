@@ -6,6 +6,7 @@ Servidor de ToXdo. Mantiene al día los beneficios y los eventos con inteligenci
 
 - **Beneficios:** una vez al día revisa las páginas oficiales de bancos, tarjetas, telefónicas, cajas e isapres del catálogo (`src/catalog.json`), y con Claude convierte lo publicado en ofertas estructuradas en la colección `offers`.
 - **Eventos:** cuando la app informa la ciudad de una persona, Claude busca en la web los panoramas de esa ciudad, se ubican en el mapa con OpenStreetMap y se guardan en `events`.
+- **Sucursales:** cada dos semanas, o cuando cambian los comercios, busca en OpenStreetMap las sucursales de los comercios con beneficio en todo Chile y las guarda por zonas en `placeCells`. La app las usa en "Beneficios cerca". No necesita IA.
 - **Asistente:** `POST /api/assistant` responde preguntas como "dónde como sushi con descuento hoy" usando solo los beneficios guardados.
 - **Páginas públicas:** `/privacidad`, `/terminos` y `/soporte`, que son las direcciones que pide la App Store.
 
@@ -28,6 +29,7 @@ npm start                      # inicia el servidor
 npm run seed                   # carga el contenido inicial de data/
 npm run ingest -- benefits santander   # actualiza con IA una o más entidades
 node scripts/check-sources.js  # revisa que las páginas del catálogo respondan
+npm run places                 # busca en OpenStreetMap las sucursales de los comercios con beneficio
 ```
 
 ## Rutas

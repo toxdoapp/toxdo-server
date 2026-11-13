@@ -6,6 +6,7 @@ import { config } from "./env.js";
 import { db } from "./firebase.js";
 import { expireOffers, ingestDue } from "./ingest/benefits.js";
 import { pruneEvents, refreshActiveCities } from "./ingest/events.js";
+import { refreshPlacesIfDue } from "./ingest/places.js";
 import { todayCL } from "./text.js";
 
 let busy = false;
@@ -51,6 +52,12 @@ export async function runDailyIfDue({ log = console.log } = {}) {
     }
   } catch (err) {
     log(`[tareas] error: ${err.message}`);
+  }
+  try {
+    // Las sucursales no dependen de la IA: se actualizan si cambiaron los comercios o pasaron dos semanas.
+    await refreshPlacesIfDue({ log });
+  } catch (err) {
+    log(`[tareas] sucursales: ${err.message}`);
   } finally {
     busy = false;
   }
