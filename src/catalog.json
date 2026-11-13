@@ -1,0 +1,642 @@
+{
+  "version": 1,
+  "entityTypes": [
+    {
+      "id": "bank",
+      "label": "Bancos",
+      "hint": "Tus cuentas y tarjetas bancarias",
+      "icon": "card-outline"
+    },
+    {
+      "id": "card",
+      "label": "Tarjetas y billeteras",
+      "hint": "Tarjetas de tiendas y apps de pago",
+      "icon": "wallet-outline"
+    },
+    {
+      "id": "mobile",
+      "label": "Telefonía e internet",
+      "hint": "Tu compañía de celular o internet",
+      "icon": "phone-portrait-outline"
+    },
+    {
+      "id": "caja",
+      "label": "Cajas de compensación",
+      "hint": "La caja a la que estás afiliado",
+      "icon": "people-outline"
+    },
+    {
+      "id": "health",
+      "label": "Salud",
+      "hint": "Tu isapre o seguro de salud",
+      "icon": "medkit-outline"
+    },
+    {
+      "id": "fuel",
+      "label": "Combustible",
+      "hint": "Apps y programas de bencineras",
+      "icon": "speedometer-outline"
+    },
+    {
+      "id": "club",
+      "label": "Clubes y programas",
+      "hint": "Suscripciones y programas de puntos",
+      "icon": "ribbon-outline"
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat_restaurants",
+      "label": "Comida",
+      "icon": "restaurant-outline",
+      "color": "#E4572E"
+    },
+    {
+      "id": "cat_supermarkets",
+      "label": "Supermercado",
+      "icon": "cart-outline",
+      "color": "#2E9E5B"
+    },
+    {
+      "id": "cat_fuel",
+      "label": "Combustible",
+      "icon": "speedometer-outline",
+      "color": "#D99A1C"
+    },
+    {
+      "id": "cat_retail",
+      "label": "Tiendas",
+      "icon": "bag-handle-outline",
+      "color": "#7A5AF8"
+    },
+    {
+      "id": "cat_travel",
+      "label": "Viajes",
+      "icon": "airplane-outline",
+      "color": "#1E88E5"
+    },
+    {
+      "id": "cat_entertainment",
+      "label": "Panoramas",
+      "icon": "ticket-outline",
+      "color": "#D6336C"
+    },
+    {
+      "id": "cat_health",
+      "label": "Salud",
+      "icon": "medkit-outline",
+      "color": "#0E9AA7"
+    },
+    {
+      "id": "cat_wellness",
+      "label": "Belleza y deporte",
+      "icon": "barbell-outline",
+      "color": "#C2410C"
+    },
+    {
+      "id": "cat_home",
+      "label": "Hogar",
+      "icon": "home-outline",
+      "color": "#6D7A8C"
+    },
+    {
+      "id": "cat_education",
+      "label": "Educación",
+      "icon": "school-outline",
+      "color": "#3F51B5"
+    },
+    {
+      "id": "cat_services",
+      "label": "Servicios",
+      "icon": "construct-outline",
+      "color": "#5C6F82"
+    }
+  ],
+  "eventCategories": [
+    {
+      "id": "music",
+      "label": "Música",
+      "icon": "musical-notes-outline",
+      "color": "#D6336C"
+    },
+    {
+      "id": "theater",
+      "label": "Teatro y humor",
+      "icon": "happy-outline",
+      "color": "#7A5AF8"
+    },
+    {
+      "id": "art",
+      "label": "Arte y cultura",
+      "icon": "color-palette-outline",
+      "color": "#1E88E5"
+    },
+    {
+      "id": "food",
+      "label": "Gastronomía",
+      "icon": "restaurant-outline",
+      "color": "#E4572E"
+    },
+    {
+      "id": "fair",
+      "label": "Ferias",
+      "icon": "storefront-outline",
+      "color": "#2E9E5B"
+    },
+    {
+      "id": "sports",
+      "label": "Deporte",
+      "icon": "football-outline",
+      "color": "#C2410C"
+    },
+    {
+      "id": "family",
+      "label": "Familia",
+      "icon": "balloon-outline",
+      "color": "#D99A1C"
+    },
+    {
+      "id": "party",
+      "label": "Fiestas",
+      "icon": "sparkles-outline",
+      "color": "#9C27B0"
+    },
+    {
+      "id": "other",
+      "label": "Otros",
+      "icon": "calendar-outline",
+      "color": "#5C6F82"
+    }
+  ],
+  "entities": [
+    {
+      "id": "banco_chile",
+      "name": "Banco de Chile",
+      "short": "Chile",
+      "type": "bank",
+      "color": "#002464",
+      "domain": "bancochile.cl",
+      "urls": [
+        "https://sitiospublicos.bancochile.cl/personas/beneficios"
+      ],
+      "hint": "beneficios y descuentos con tarjetas Banco de Chile y Banco Edwards"
+    },
+    {
+      "id": "santander",
+      "name": "Santander",
+      "short": "Santander",
+      "type": "bank",
+      "color": "#EC0000",
+      "domain": "santander.cl",
+      "urls": [
+        "https://banco.santander.cl/beneficios"
+      ],
+      "hint": "beneficios y descuentos con tarjetas Santander Chile"
+    },
+    {
+      "id": "bci",
+      "name": "Bci",
+      "short": "Bci",
+      "type": "bank",
+      "color": "#00A651",
+      "domain": "bci.cl",
+      "urls": [
+        "https://www.bci.cl/beneficios/beneficios-bci"
+      ],
+      "hint": "beneficios Bci con tarjetas de crédito y débito"
+    },
+    {
+      "id": "banco_estado",
+      "name": "BancoEstado",
+      "short": "BancoEstado",
+      "type": "bank",
+      "color": "#F18A00",
+      "domain": "bancoestado.cl",
+      "urls": [
+        "https://www.bancoestado.cl/content/bancoestado-public/cl/es/home/home/todosuma---bancoestado-personas.html"
+      ],
+      "hint": "beneficios TodoSuma y descuentos con tarjetas BancoEstado y CuentaRUT"
+    },
+    {
+      "id": "scotiabank",
+      "name": "Scotiabank",
+      "short": "Scotia",
+      "type": "bank",
+      "color": "#EC111A",
+      "domain": "scotiabankchile.cl",
+      "urls": [
+        "https://www.scotiarewards.cl/scclubfront/categoria/mundos/descuentos"
+      ],
+      "hint": "descuentos Scotia Rewards con tarjetas Scotiabank Chile"
+    },
+    {
+      "id": "itau",
+      "name": "Itaú",
+      "short": "Itaú",
+      "type": "bank",
+      "color": "#EC7000",
+      "domain": "itau.cl",
+      "urls": [
+        "https://itaubeneficios.cl/"
+      ],
+      "hint": "beneficios Itaú Chile con tarjetas de crédito y débito"
+    },
+    {
+      "id": "bice",
+      "name": "Banco BICE",
+      "short": "BICE",
+      "type": "bank",
+      "color": "#0A3A6B",
+      "domain": "bice.cl",
+      "urls": [
+        "https://banco.bice.cl/personas/beneficios"
+      ],
+      "hint": "beneficios y descuentos con tarjetas Banco BICE"
+    },
+    {
+      "id": "consorcio",
+      "name": "Banco Consorcio",
+      "short": "Consorcio",
+      "type": "bank",
+      "color": "#00338D",
+      "domain": "bancoconsorcio.cl",
+      "urls": [
+        "https://www.bancoconsorcio.cl/"
+      ],
+      "hint": "beneficios y descuentos con tarjetas Banco Consorcio"
+    },
+    {
+      "id": "banco_falabella",
+      "name": "Banco Falabella y CMR",
+      "short": "CMR",
+      "type": "bank",
+      "color": "#00693C",
+      "domain": "bancofalabella.cl",
+      "urls": [
+        "https://www.bancofalabella.cl/descuentos"
+      ],
+      "hint": "descuentos con tarjeta CMR y Banco Falabella"
+    },
+    {
+      "id": "banco_ripley",
+      "name": "Banco Ripley",
+      "short": "Ripley",
+      "type": "bank",
+      "color": "#532E8D",
+      "domain": "bancoripley.cl",
+      "urls": [
+        "https://www.bancoripley.cl/beneficios-y-promociones"
+      ],
+      "hint": "beneficios y promociones con tarjeta Ripley"
+    },
+    {
+      "id": "coopeuch",
+      "name": "Coopeuch",
+      "short": "Coopeuch",
+      "type": "bank",
+      "color": "#E2231A",
+      "domain": "coopeuch.cl",
+      "urls": [
+        "https://www.coopeuch.cl/personas/beneficios.html"
+      ],
+      "hint": "beneficios para socios Coopeuch"
+    },
+    {
+      "id": "cencosud_scotiabank",
+      "name": "Tarjeta Cencosud Scotiabank",
+      "short": "Cencosud",
+      "type": "card",
+      "color": "#0057A8",
+      "domain": "tarjetacencosud.cl",
+      "urls": [
+        "https://www.tarjetacencosud.cl/publico/beneficios/landing/inicio"
+      ],
+      "hint": "beneficios con Tarjeta Cencosud Scotiabank en Jumbo, Paris, Easy y comercios"
+    },
+    {
+      "id": "lider_bci",
+      "name": "Lider Bci",
+      "short": "Lider Bci",
+      "type": "card",
+      "color": "#0071CE",
+      "domain": "liderbci.cl",
+      "urls": [
+        "https://www.liderbci.cl/"
+      ],
+      "hint": "beneficios con tarjeta Lider Bci"
+    },
+    {
+      "id": "tenpo",
+      "name": "Tenpo",
+      "short": "Tenpo",
+      "type": "card",
+      "color": "#00B37A",
+      "domain": "tenpo.cl",
+      "urls": [
+        "https://www.tenpo.cl/beneficios"
+      ],
+      "hint": "beneficios y descuentos pagando con Tenpo"
+    },
+    {
+      "id": "mach",
+      "name": "MACH",
+      "short": "MACH",
+      "type": "card",
+      "color": "#6E2CF4",
+      "domain": "somosmach.com",
+      "urls": [
+        "https://www.somosmach.com/beneficios"
+      ],
+      "hint": "beneficios y cashback pagando con MACH"
+    },
+    {
+      "id": "mercado_pago",
+      "name": "Mercado Pago",
+      "short": "M. Pago",
+      "type": "card",
+      "color": "#00A0D6",
+      "domain": "mercadopago.cl",
+      "urls": [
+        "https://www.mercadopago.cl/descuentos"
+      ],
+      "hint": "descuentos pagando con Mercado Pago en Chile"
+    },
+    {
+      "id": "entel",
+      "name": "Entel",
+      "short": "Entel",
+      "type": "mobile",
+      "color": "#002EFF",
+      "domain": "entel.cl",
+      "urls": [
+        "https://www.entel.cl/beneficios/"
+      ],
+      "hint": "beneficios y descuentos para clientes Entel"
+    },
+    {
+      "id": "movistar",
+      "name": "Movistar",
+      "short": "Movistar",
+      "type": "mobile",
+      "color": "#019DF4",
+      "domain": "movistar.cl",
+      "urls": [
+        "https://ww2.movistar.cl/club/"
+      ],
+      "hint": "beneficios Club Movistar para clientes"
+    },
+    {
+      "id": "claro",
+      "name": "Claro",
+      "short": "Claro",
+      "type": "mobile",
+      "color": "#DA291C",
+      "domain": "clarochile.cl",
+      "urls": [
+        "https://www.clarochile.cl/personas/beneficios/"
+      ],
+      "hint": "beneficios Claro Club para clientes Claro Chile"
+    },
+    {
+      "id": "wom",
+      "name": "WOM",
+      "short": "WOM",
+      "type": "mobile",
+      "color": "#7B2D8E",
+      "domain": "wom.cl",
+      "urls": [
+        "https://www.wom.cl/beneficios/"
+      ],
+      "hint": "beneficios para clientes WOM"
+    },
+    {
+      "id": "vtr",
+      "name": "VTR",
+      "short": "VTR",
+      "type": "mobile",
+      "color": "#E4002B",
+      "domain": "vtr.com",
+      "urls": [
+        "https://www.vtr.com/"
+      ],
+      "hint": "beneficios para clientes VTR"
+    },
+    {
+      "id": "caja_los_andes",
+      "name": "Caja Los Andes",
+      "short": "Los Andes",
+      "type": "caja",
+      "color": "#0090C9",
+      "domain": "cajalosandes.cl",
+      "urls": [
+        "https://www.cajalosandes.cl/"
+      ],
+      "hint": "beneficios y descuentos para afiliados Caja Los Andes"
+    },
+    {
+      "id": "la_araucana",
+      "name": "La Araucana",
+      "short": "Araucana",
+      "type": "caja",
+      "color": "#E30613",
+      "domain": "laaraucana.cl",
+      "urls": [
+        "https://www.laaraucana.cl/beneficios"
+      ],
+      "hint": "beneficios y convenios para afiliados La Araucana"
+    },
+    {
+      "id": "los_heroes",
+      "name": "Caja Los Héroes",
+      "short": "Los Héroes",
+      "type": "caja",
+      "color": "#0033A0",
+      "domain": "losheroes.cl",
+      "urls": [
+        "https://www.losheroes.cl/wps/wcm/connect/internet/trabajadores/beneficios"
+      ],
+      "hint": "beneficios y descuentos para afiliados Caja Los Héroes"
+    },
+    {
+      "id": "caja_18",
+      "name": "Caja 18",
+      "short": "Caja 18",
+      "type": "caja",
+      "color": "#E6007E",
+      "domain": "caja18.cl",
+      "urls": [
+        "https://www.caja18.cl/beneficios"
+      ],
+      "hint": "beneficios para afiliados Caja 18"
+    },
+    {
+      "id": "banmedica",
+      "name": "Isapre Banmédica",
+      "short": "Banmédica",
+      "type": "health",
+      "color": "#E4002B",
+      "domain": "banmedica.cl",
+      "urls": [
+        "https://www.banmedica.cl/beneficios/"
+      ],
+      "hint": "beneficios y descuentos para afiliados Isapre Banmédica"
+    },
+    {
+      "id": "colmena",
+      "name": "Isapre Colmena",
+      "short": "Colmena",
+      "type": "health",
+      "color": "#D99A1C",
+      "domain": "colmena.cl",
+      "urls": [
+        "https://www.colmena.cl/beneficios"
+      ],
+      "hint": "beneficios y convenios para afiliados Colmena"
+    },
+    {
+      "id": "consalud",
+      "name": "Isapre Consalud",
+      "short": "Consalud",
+      "type": "health",
+      "color": "#00A19A",
+      "domain": "consalud.cl",
+      "urls": [
+        "https://www.consalud.cl/"
+      ],
+      "hint": "beneficios y descuentos para afiliados Consalud"
+    },
+    {
+      "id": "cruzblanca",
+      "name": "Isapre CruzBlanca",
+      "short": "CruzBlanca",
+      "type": "health",
+      "color": "#0072CE",
+      "domain": "cruzblanca.cl",
+      "urls": [
+        "https://www.cruzblanca.cl/beneficios"
+      ],
+      "hint": "beneficios y convenios para afiliados CruzBlanca"
+    },
+    {
+      "id": "nueva_masvida",
+      "name": "Isapre Nueva Masvida",
+      "short": "Masvida",
+      "type": "health",
+      "color": "#4FA83D",
+      "domain": "nuevamasvida.cl",
+      "urls": [
+        "https://www.nuevamasvida.cl/beneficios"
+      ],
+      "hint": "beneficios para afiliados Nueva Masvida"
+    },
+    {
+      "id": "vidatres",
+      "name": "Isapre Vida Tres",
+      "short": "Vida Tres",
+      "type": "health",
+      "color": "#003DA5",
+      "domain": "vidatres.cl",
+      "urls": [
+        "https://www.vidatres.cl/beneficios/"
+      ],
+      "hint": "beneficios para afiliados Vida Tres"
+    },
+    {
+      "id": "copec",
+      "name": "Copec",
+      "short": "Copec",
+      "type": "fuel",
+      "color": "#E2001A",
+      "domain": "copec.cl",
+      "urls": [
+        "https://ww2.copec.cl/personas/descuentos"
+      ],
+      "hint": "descuentos en combustible Copec con la app Copec y medios de pago"
+    },
+    {
+      "id": "shell",
+      "name": "Shell",
+      "short": "Shell",
+      "type": "fuel",
+      "color": "#DD1D21",
+      "domain": "shell.cl",
+      "urls": [
+        "https://www.micopiloto.cl/",
+        "https://www.shell.cl/"
+      ],
+      "hint": "descuentos en combustible Shell con Mi Copiloto y medios de pago"
+    },
+    {
+      "id": "aramco",
+      "name": "Aramco",
+      "short": "Aramco",
+      "type": "fuel",
+      "color": "#0086B8",
+      "domain": "aramcoestaciones.cl",
+      "urls": [
+        "https://www.aramcoestaciones.cl/"
+      ],
+      "hint": "descuentos en combustible en estaciones Aramco en Chile"
+    },
+    {
+      "id": "club_la_tercera",
+      "name": "Club La Tercera",
+      "short": "La Tercera",
+      "type": "club",
+      "color": "#D0021B",
+      "domain": "latercera.com",
+      "urls": [
+        "https://club.latercera.com/"
+      ],
+      "hint": "descuentos para suscriptores del Club La Tercera"
+    },
+    {
+      "id": "club_lectores",
+      "name": "Club de Lectores El Mercurio",
+      "short": "El Mercurio",
+      "type": "club",
+      "color": "#1B365D",
+      "domain": "clubdelectores.cl",
+      "urls": [
+        "https://www.clubdelectores.cl/"
+      ],
+      "hint": "beneficios del Club de Lectores El Mercurio"
+    },
+    {
+      "id": "latam_pass",
+      "name": "LATAM Pass",
+      "short": "LATAM Pass",
+      "type": "club",
+      "color": "#E8114B",
+      "domain": "latamairlines.com",
+      "urls": [
+        "https://latampass.latam.com/es_cl/"
+      ],
+      "hint": "beneficios y promociones LATAM Pass para socios en Chile"
+    },
+    {
+      "id": "puntos_cencosud",
+      "name": "Puntos Cencosud",
+      "short": "Puntos Cenco",
+      "type": "club",
+      "color": "#0057A8",
+      "domain": "puntoscencosud.cl",
+      "urls": [
+        "https://www.puntoscencosud.cl/puntos/"
+      ],
+      "hint": "beneficios y canjes del programa Puntos Cencosud"
+    },
+    {
+      "id": "tarjeta_joven",
+      "name": "Tarjeta Joven INJUV",
+      "short": "T. Joven",
+      "type": "club",
+      "color": "#0A7CFF",
+      "domain": "injuv.gob.cl",
+      "urls": [
+        "https://www.injuv.gob.cl/tarjetajoven"
+      ],
+      "hint": "descuentos con la Tarjeta Joven de INJUV"
+    }
+  ]
+}
