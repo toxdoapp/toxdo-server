@@ -33,4 +33,8 @@ export const config = {
   cityRefreshesPerDay: int("EVENT_CITIES_PER_DAY", 25),
   assistantPerUserPerDay: int("ASSISTANT_PER_USER_PER_DAY", 40),
   cronEnabled: process.env.DISABLE_CRON !== "1",
+  // Google Sheet con beneficios cargados a mano o por un scraper propio. Vacío desactiva la sincronización.
+  // Debe estar compartido como "Cualquier persona con el enlace, Lector".
+  sheetId: (process.env.BENEFITS_SHEET_ID || "").trim(),
+  sheetGid: (process.env.BENEFITS_SHEET_GID || "0").trim(),
 };

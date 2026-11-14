@@ -7,6 +7,7 @@ Servidor de ToXdo. Mantiene al día los beneficios y los eventos con inteligenci
 - **Beneficios:** una vez al día revisa las páginas oficiales de bancos, tarjetas, telefónicas, cajas e isapres del catálogo (`src/catalog.json`), y con Claude convierte lo publicado en ofertas estructuradas en la colección `offers`.
 - **Eventos:** cuando la app informa la ciudad de una persona, Claude busca en la web los panoramas de esa ciudad, se ubican en el mapa con OpenStreetMap y se guardan en `events`.
 - **Sucursales:** cada dos semanas, o cuando cambian los comercios, busca en OpenStreetMap las sucursales de los comercios con beneficio en todo Chile y las guarda por zonas en `placeCells`. La app las usa en "Beneficios cerca". No necesita IA.
+- **Sheet de beneficios:** si se configura `BENEFITS_SHEET_ID`, una vez al día lee un Google Sheet público con beneficios cargados a mano o por un scraper propio, y los guarda en `offers` igual que la ingesta con IA. No usa IA ni tiene costo. Ver `src/ingest/sheet.js`.
 - **Asistente:** `POST /api/assistant` responde preguntas como "dónde como sushi con descuento hoy" usando solo los beneficios guardados.
 - **Páginas públicas:** `/privacidad`, `/terminos` y `/soporte`, que son las direcciones que pide la App Store.
 
@@ -20,6 +21,8 @@ Copia `.env.example` como `.env` para trabajar en tu computador. En Render se co
 | `FIREBASE_SERVICE_ACCOUNT` | Credencial de servicio de Firebase, en una línea de JSON o en base64. |
 | `SCRAPE_SECRET` | Secreto de las rutas `/api/admin`. Mínimo 12 caracteres. |
 | `ANTHROPIC_MODEL` | Opcional. Modelo principal. Por defecto usa Claude Fable. |
+| `BENEFITS_SHEET_ID` | Opcional. ID del Google Sheet de beneficios (el que aparece en su URL, entre `/d/` y `/edit`). El Sheet debe estar compartido como "Cualquier persona con el enlace, Lector". Vacío desactiva la sincronización. |
+| `BENEFITS_SHEET_GID` | Opcional. Pestaña del Sheet a leer. Por defecto `0`, la primera. |
 
 ## Comandos
 
@@ -30,6 +33,7 @@ npm run seed                   # carga el contenido inicial de data/
 npm run ingest -- benefits santander   # actualiza con IA una o más entidades
 node scripts/check-sources.js  # revisa que las páginas del catálogo respondan
 npm run places                 # busca en OpenStreetMap las sucursales de los comercios con beneficio
+npm run sync:sheet             # sincroniza los beneficios del Google Sheet (sin IA)
 ```
 
 ## Rutas
@@ -42,6 +46,7 @@ npm run places                 # busca en OpenStreetMap las sucursales de los co
 | `POST /api/assistant` | Asistente. Requiere el token de Firebase de la persona. |
 | `POST /api/admin/ingest/benefits` | Fuerza la ingesta de beneficios. Requiere `x-toxdo-secret`. |
 | `POST /api/admin/ingest/events` | Fuerza la búsqueda de eventos de una ciudad. Requiere `x-toxdo-secret`. |
+| `POST /api/admin/sync/sheet` | Sincroniza los beneficios del Google Sheet ahora mismo, sin esperar al cron diario. Requiere `x-toxdo-secret`. |
 | `GET /api/admin/status` | Estado de la IA y de las últimas ingestas. Requiere `x-toxdo-secret`. |
 
 ## Contenido inicial

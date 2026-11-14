@@ -7,6 +7,7 @@ import { db } from "./firebase.js";
 import { expireOffers, ingestDue } from "./ingest/benefits.js";
 import { pruneEvents, refreshActiveCities } from "./ingest/events.js";
 import { refreshPlacesIfDue } from "./ingest/places.js";
+import { syncSheet } from "./ingest/sheet.js";
 import { todayCL } from "./text.js";
 
 let busy = false;
@@ -58,6 +59,15 @@ export async function runDailyIfDue({ log = console.log } = {}) {
     await refreshPlacesIfDue({ log });
   } catch (err) {
     log(`[tareas] sucursales: ${err.message}`);
+  }
+  try {
+    // El Sheet tampoco necesita IA: se sincroniza aparte, una vez al día.
+    if (config.sheetId && (await claim("sheetSyncDate"))) {
+      const result = await syncSheet({ log });
+      log(`[tareas] sheet: ${JSON.stringify(result)}`);
+    }
+  } catch (err) {
+    log(`[tareas] sheet: ${err.message}`);
   } finally {
     busy = false;
   }

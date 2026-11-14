@@ -10,6 +10,7 @@ import { entityById } from "./src/catalog.js";
 import { auth, db, firebaseReady } from "./src/firebase.js";
 import { ingestDue } from "./src/ingest/benefits.js";
 import { refreshCity } from "./src/ingest/events.js";
+import { syncSheet } from "./src/ingest/sheet.js";
 import { runDailyIfDue, startScheduler } from "./src/scheduler.js";
 import { todayCL } from "./src/text.js";
 
@@ -154,6 +155,15 @@ app.post(
     const { city, region, lat, lng } = req.body || {};
     if (typeof city !== "string" || !city.trim()) return res.status(400).json({ error: "city_required" });
     res.status(202).json(await refreshCity({ city, region, lat, lng, force: true }));
+  }),
+);
+
+app.post(
+  "/api/admin/sync/sheet",
+  requireSecret,
+  wrap(async (req, res) => {
+    if (!firebaseReady()) return res.status(503).json({ error: "server_not_ready" });
+    res.json(await syncSheet());
   }),
 );
 
