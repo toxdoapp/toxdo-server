@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin de ToXdo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/estilo.css">
+<style>
+  input[type="password"] { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); font-size: 16px; margin: 8px 0 14px; background: var(--card); color: var(--ink); }
+  button { background: var(--red); color: #fff; border: none; border-radius: 10px; padding: 12px 18px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; }
+  button:disabled { opacity: 0.6; cursor: default; }
+  pre { background: var(--navy); color: #cfe; padding: 14px; border-radius: 10px; overflow-x: auto; font-size: 13px; white-space: pre-wrap; word-break: break-word; }
+  .muted { color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="/">To<span>X</span>do</a><p>Panel interno</p></div></header>
+<main>
+<h1>Sincronizar el Sheet</h1>
+<p class="muted">Se actualiza solo cada 4 horas. Este botón lo fuerza ahora mismo. Pide el secreto de administración (x-toxdo-secret), nunca se guarda.</p>
+
+<div class="card">
+  <label for="secret">Secreto de administración</label>
+  <input id="secret" type="password" autocomplete="off" placeholder="x-toxdo-secret">
+  <button id="run">Sincronizar ahora</button>
+  <p id="status" class="muted" style="margin-top:14px"></p>
+  <pre id="result" style="display:none"></pre>
+</div>
+
+<nav><a href="/">Inicio</a></nav>
+</main>
+<script>
+  const btn = document.getElementById("run");
+  const secretInput = document.getElementById("secret");
+  const status = document.getElementById("status");
+  const result = document.getElementById("result");
+
+  btn.addEventListener("click", async () => {
+    const secret = secretInput.value.trim();
+    if (!secret) { status.textContent = "Escribe el secreto primero."; return; }
+    btn.disabled = true;
+    status.textContent = "Sincronizando… puede tardar hasta un minuto.";
+    result.style.display = "none";
+    try {
+      const res = await fetch("/api/admin/sync/sheet", { method: "POST", headers: { "x-toxdo-secret": secret } });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        status.textContent = "Error (" + res.status + "): " + (data.error || "desconocido");
+      } else {
+        status.textContent = "Listo.";
+        result.textContent = JSON.stringify(data, null, 2);
+        result.style.display = "block";
+      }
+    } catch (err) {
+      status.textContent = "No se pudo conectar: " + err.message;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

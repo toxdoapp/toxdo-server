@@ -302,6 +302,9 @@ export async function syncSheet({ log = console.log } = {}) {
       source: "sheet",
       sourceUrl: `https://docs.google.com/spreadsheets/d/${sheetId}/edit`,
       replaceSources: ["sheet"],
+      // Sin avisos: el Sheet trae cientos de filas por corrida y correrá varias veces al día,
+      // así que avisar "nuevo beneficio" por cada una saturaría las Novedades de la app.
+      announce: false,
     });
     savedEntities += 1;
     savedOffers += result.found;

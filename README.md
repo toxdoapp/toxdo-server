@@ -7,7 +7,7 @@ Servidor de ToXdo. Mantiene al día los beneficios y los eventos con inteligenci
 - **Beneficios:** una vez al día revisa las páginas oficiales de bancos, tarjetas, telefónicas, cajas e isapres del catálogo (`src/catalog.json`), y con Claude convierte lo publicado en ofertas estructuradas en la colección `offers`.
 - **Eventos:** cuando la app informa la ciudad de una persona, Claude busca en la web los panoramas de esa ciudad, se ubican en el mapa con OpenStreetMap y se guardan en `events`.
 - **Sucursales:** cada dos semanas, o cuando cambian los comercios, busca en OpenStreetMap las sucursales de los comercios con beneficio en todo Chile y las guarda por zonas en `placeCells`. La app las usa en "Beneficios cerca". No necesita IA.
-- **Sheet de beneficios:** si se configura `BENEFITS_SHEET_ID`, una vez al día lee un Google Sheet público con beneficios cargados a mano o por un scraper propio, y los guarda en `offers` igual que la ingesta con IA. No usa IA ni tiene costo. Ver `src/ingest/sheet.js`.
+- **Sheet de beneficios:** si se configura `BENEFITS_SHEET_ID`, lee cada 4 horas un Google Sheet público con beneficios cargados a mano o por un scraper propio, y los guarda en `offers` igual que la ingesta con IA, sin generar avisos de "nuevo beneficio" (el volumen del Sheet los saturaría). No usa IA ni tiene costo. Ver `src/ingest/sheet.js`. En `/admin` hay un botón para forzarlo al instante, sin terminal.
 - **Asistente:** `POST /api/assistant` responde preguntas como "dónde como sushi con descuento hoy" usando solo los beneficios guardados.
 - **Páginas públicas:** `/privacidad`, `/terminos` y `/soporte`, que son las direcciones que pide la App Store.
 
@@ -46,7 +46,7 @@ npm run sync:sheet             # sincroniza los beneficios del Google Sheet (sin
 | `POST /api/assistant` | Asistente. Requiere el token de Firebase de la persona. |
 | `POST /api/admin/ingest/benefits` | Fuerza la ingesta de beneficios. Requiere `x-toxdo-secret`. |
 | `POST /api/admin/ingest/events` | Fuerza la búsqueda de eventos de una ciudad. Requiere `x-toxdo-secret`. |
-| `POST /api/admin/sync/sheet` | Sincroniza los beneficios del Google Sheet ahora mismo, sin esperar al cron diario. Requiere `x-toxdo-secret`. |
+| `POST /api/admin/sync/sheet` | Sincroniza los beneficios del Google Sheet ahora mismo, sin esperar a la próxima pasada automática (cada 4 horas). Requiere `x-toxdo-secret`. También hay un botón en `/admin`. |
 | `GET /api/admin/status` | Estado de la IA y de las últimas ingestas. Requiere `x-toxdo-secret`. |
 
 ## Contenido inicial

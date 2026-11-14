@@ -11,6 +11,7 @@ import { syncSheet } from "./ingest/sheet.js";
 import { todayCL } from "./text.js";
 
 let busy = false;
+let sheetBusy = false;
 
 // Marca la tarea como tomada para hoy. Devuelve false si ya se hizo.
 async function claim(field) {
@@ -59,23 +60,33 @@ export async function runDailyIfDue({ log = console.log } = {}) {
     await refreshPlacesIfDue({ log });
   } catch (err) {
     log(`[tareas] sucursales: ${err.message}`);
-  }
-  try {
-    // El Sheet tampoco necesita IA: se sincroniza aparte, una vez al día.
-    if (config.sheetId && (await claim("sheetSyncDate"))) {
-      const result = await syncSheet({ log });
-      log(`[tareas] sheet: ${JSON.stringify(result)}`);
-    }
-  } catch (err) {
-    log(`[tareas] sheet: ${err.message}`);
   } finally {
     busy = false;
+  }
+}
+
+// El Sheet no depende de IA y no tiene costo, así que se revisa varias veces al día en vez de una sola.
+// Tiene su propio candado (no el de runDailyIfDue) para no esperar a que termine la tarea diaria completa.
+export async function runSheetSyncNow({ log = console.log } = {}) {
+  if (!db || !config.sheetId || sheetBusy) return { skipped: true };
+  sheetBusy = true;
+  try {
+    const result = await syncSheet({ log });
+    log(`[tareas] sheet: ${JSON.stringify(result)}`);
+    return result;
+  } catch (err) {
+    log(`[tareas] sheet: ${err.message}`);
+    return { error: err.message };
+  } finally {
+    sheetBusy = false;
   }
 }
 
 export function startScheduler() {
   if (!config.cronEnabled) return;
   cron.schedule("15 6 * * *", () => runDailyIfDue(), { timezone: "America/Santiago" });
+  if (config.sheetId) cron.schedule("20 */4 * * *", () => runSheetSyncNow(), { timezone: "America/Santiago" });
   // Al arrancar se espera un momento para no competir con el inicio del servidor.
   setTimeout(() => runDailyIfDue(), 20000).unref();
+  setTimeout(() => runSheetSyncNow(), 25000).unref();
 }
