@@ -290,7 +290,8 @@ export async function syncSheet({ log = console.log } = {}) {
     if (!offer) continue;
     if (!byEntity.has(entity.id)) byEntity.set(entity.id, []);
     const list = byEntity.get(entity.id);
-    if (list.length < 80) list.push(offer);
+    // Tope alto solo para frenar una carga descontrolada del Sheet, no para recortar el catálogo real.
+    if (list.length < 1000) list.push(offer);
   }
 
   let savedEntities = 0;
