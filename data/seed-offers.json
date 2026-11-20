@@ -39,7 +39,8 @@
   "lider_bci": {
     "sourceUrl": "https://chocale.cl/2026/11/descuentos-en-bencinas-combustibles-noviembre-copec-arambo-shell-2026/",
     "offers": [
-      { "merchant": "Copec", "merchantDomain": "copec.cl", "title": "$100 de descuento por litro los martes", "description": "Carga combustible en Copec los martes pagando con tu tarjeta Lider Bci en la app de la bencinera.", "discountLabel": "$100 por litro", "categoryId": "cat_fuel", "days": [2], "validity": "Martes de noviembre de 2026", "expiresAt": "2026-11-30", "paymentMethods": "Tarjeta Lider Bci en la App Copec", "channel": "presencial", "isFeatured": true }
+      { "merchant": "Copec", "merchantDomain": "copec.cl", "title": "$100 de descuento por litro los martes", "description": "Carga combustible en Copec los martes pagando con tu tarjeta Lider Bci en la app de la bencinera.", "discountLabel": "$100 por litro", "categoryId": "cat_fuel", "days": [2], "validity": "Martes de noviembre de 2026", "expiresAt": "2026-11-30", "paymentMethods": "Tarjeta Lider Bci en la App Copec", "channel": "presencial", "isFeatured": true },
+      { "merchant": "Lider", "merchantDomain": "lider.cl", "title": "6% de vuelta en Pesos Mi Club en el supermercado", "description": "Paga con tu Tarjeta Lider Bci en Lider, Express de Lider, Lider.cl o la App Lider y recibe 6% del total en Pesos Mi Club, todos los días.", "discountLabel": "6%", "categoryId": "cat_supermarkets", "days": [], "validity": "Beneficio permanente, vigente desde julio de 2025", "conditions": "Tope de $200.000 Pesos Mi Club al mes por cliente.", "paymentMethods": "Tarjeta de crédito Lider Bci", "channel": "ambos", "isFeatured": true, "benefitUrl": "https://www.lider.cl/ayuda/articulo/declaracion-de-beneficios-mi-club-lider-bci/9a8ba4c6f6bb4c6785e03996a4807d29" }
     ]
   },
   "cencosud_scotiabank": {
