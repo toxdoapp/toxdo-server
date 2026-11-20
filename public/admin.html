@@ -12,52 +12,71 @@
   button:disabled { opacity: 0.6; cursor: default; }
   pre { background: var(--navy); color: #cfe; padding: 14px; border-radius: 10px; overflow-x: auto; font-size: 13px; white-space: pre-wrap; word-break: break-word; }
   .muted { color: var(--muted); font-size: 14px; }
+  .card { margin-bottom: 20px; }
 </style>
 </head>
 <body>
 <header><div class="wrap"><a href="/">To<span>X</span>do</a><p>Panel interno</p></div></header>
 <main>
 <h1>Sincronizar el Sheet</h1>
-<p class="muted">Se actualiza solo cada 4 horas. Este botón lo fuerza ahora mismo. Pide el secreto de administración (x-toxdo-secret), nunca se guarda.</p>
 
 <div class="card">
   <label for="secret">Secreto de administración</label>
   <input id="secret" type="password" autocomplete="off" placeholder="x-toxdo-secret">
-  <button id="run">Sincronizar ahora</button>
-  <p id="status" class="muted" style="margin-top:14px"></p>
-  <pre id="result" style="display:none"></pre>
+  <p class="muted">Vale para los dos botones de abajo. Nunca se guarda.</p>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">Beneficios</h2>
+  <p class="muted">Se actualiza solo cada 4 horas. Este botón lo fuerza ahora mismo.</p>
+  <button id="run-sheet" data-path="/api/admin/sync/sheet">Sincronizar beneficios</button>
+  <p id="status-sheet" class="muted" style="margin-top:14px"></p>
+  <pre id="result-sheet" style="display:none"></pre>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">Eventos</h2>
+  <p class="muted">Lee la pestaña de eventos del mismo Sheet. También se actualiza solo cada 4 horas.</p>
+  <button id="run-events" data-path="/api/admin/sync/events">Sincronizar eventos</button>
+  <p id="status-events" class="muted" style="margin-top:14px"></p>
+  <pre id="result-events" style="display:none"></pre>
 </div>
 
 <nav><a href="/">Inicio</a></nav>
 </main>
 <script>
-  const btn = document.getElementById("run");
   const secretInput = document.getElementById("secret");
-  const status = document.getElementById("status");
-  const result = document.getElementById("result");
 
-  btn.addEventListener("click", async () => {
-    const secret = secretInput.value.trim();
-    if (!secret) { status.textContent = "Escribe el secreto primero."; return; }
-    btn.disabled = true;
-    status.textContent = "Sincronizando… puede tardar hasta un minuto.";
-    result.style.display = "none";
-    try {
-      const res = await fetch("/api/admin/sync/sheet", { method: "POST", headers: { "x-toxdo-secret": secret } });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        status.textContent = "Error (" + res.status + "): " + (data.error || "desconocido");
-      } else {
-        status.textContent = "Listo.";
-        result.textContent = JSON.stringify(data, null, 2);
-        result.style.display = "block";
+  function wire(key) {
+    const btn = document.getElementById("run-" + key);
+    const status = document.getElementById("status-" + key);
+    const result = document.getElementById("result-" + key);
+    btn.addEventListener("click", async () => {
+      const secret = secretInput.value.trim();
+      if (!secret) { status.textContent = "Escribe el secreto primero."; return; }
+      btn.disabled = true;
+      status.textContent = "Sincronizando… puede tardar hasta un minuto.";
+      result.style.display = "none";
+      try {
+        const res = await fetch(btn.dataset.path, { method: "POST", headers: { "x-toxdo-secret": secret } });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          status.textContent = "Error (" + res.status + "): " + (data.error || "desconocido");
+        } else {
+          status.textContent = "Listo.";
+          result.textContent = JSON.stringify(data, null, 2);
+          result.style.display = "block";
+        }
+      } catch (err) {
+        status.textContent = "No se pudo conectar: " + err.message;
+      } finally {
+        btn.disabled = false;
       }
-    } catch (err) {
-      status.textContent = "No se pudo conectar: " + err.message;
-    } finally {
-      btn.disabled = false;
-    }
-  });
+    });
+  }
+
+  wire("sheet");
+  wire("events");
 </script>
 </body>
 </html>

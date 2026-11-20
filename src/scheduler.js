@@ -7,11 +7,13 @@ import { db } from "./firebase.js";
 import { expireOffers, ingestDue } from "./ingest/benefits.js";
 import { pruneEvents, refreshActiveCities } from "./ingest/events.js";
 import { refreshPlacesIfDue } from "./ingest/places.js";
+import { syncEventsSheet } from "./ingest/eventsSheet.js";
 import { syncSheet } from "./ingest/sheet.js";
 import { todayCL } from "./text.js";
 
 let busy = false;
 let sheetBusy = false;
+let eventsSheetBusy = false;
 
 // Marca la tarea como tomada para hoy. Devuelve false si ya se hizo.
 async function claim(field) {
@@ -82,11 +84,30 @@ export async function runSheetSyncNow({ log = console.log } = {}) {
   }
 }
 
+// La pestaña de eventos se llena fuera del servidor (por ejemplo, un script en el computador
+// de la persona), no con IA del servidor. Acá solo se lee, se valida y se geocodifica.
+export async function runEventsSheetSyncNow({ log = console.log } = {}) {
+  if (!db || !config.eventsSheetGid || eventsSheetBusy) return { skipped: true };
+  eventsSheetBusy = true;
+  try {
+    const result = await syncEventsSheet({ log });
+    log(`[tareas] eventos-sheet: ${JSON.stringify(result)}`);
+    return result;
+  } catch (err) {
+    log(`[tareas] eventos-sheet: ${err.message}`);
+    return { error: err.message };
+  } finally {
+    eventsSheetBusy = false;
+  }
+}
+
 export function startScheduler() {
   if (!config.cronEnabled) return;
   cron.schedule("15 6 * * *", () => runDailyIfDue(), { timezone: "America/Santiago" });
   if (config.sheetId) cron.schedule("20 */4 * * *", () => runSheetSyncNow(), { timezone: "America/Santiago" });
+  if (config.eventsSheetGid) cron.schedule("40 */4 * * *", () => runEventsSheetSyncNow(), { timezone: "America/Santiago" });
   // Al arrancar se espera un momento para no competir con el inicio del servidor.
   setTimeout(() => runDailyIfDue(), 20000).unref();
   setTimeout(() => runSheetSyncNow(), 25000).unref();
+  setTimeout(() => runEventsSheetSyncNow(), 30000).unref();
 }

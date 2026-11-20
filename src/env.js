@@ -37,4 +37,6 @@ export const config = {
   // Debe estar compartido como "Cualquier persona con el enlace, Lector".
   sheetId: (process.env.BENEFITS_SHEET_ID || "").trim(),
   sheetGid: (process.env.BENEFITS_SHEET_GID || "0").trim(),
+  // Pestaña de eventos del mismo Sheet (gid distinto). Vacío desactiva la sincronización.
+  eventsSheetGid: (process.env.EVENTS_SHEET_GID || "").trim(),
 };
