@@ -1,0 +1,23 @@
+Busca eventos y panoramas reales, confirmados y abiertos al público en Santiago, Viña del Mar y Concepción, Chile, entre hoy y los próximos 60 días. Revisa ticketeras chilenas (Puntoticket, Ticketmaster, Passline, Ticketplus), carteleras de municipalidades y teatros, y medios locales. No inventes eventos, fechas ni lugares. No hagas más de 3 o 4 búsquedas por ciudad.
+
+Para cada evento que encuentres, agrega una fila en la pestaña "Eventos" del Google Sheet con ID 1Kz9GtusWIOIShm9-8cLzA_XdpdseNG3xiuJbPck4dnw, con estas columnas exactas (ya están en la fila 1 de esa pestaña):
+- Status: Active
+- Pais: Chile
+- Ciudad: la ciudad (Santiago, Viña del Mar o Concepción)
+- Region: la región
+- title: nombre del evento, sin mayúsculas sostenidas
+- description: una o dos frases
+- category: una sola palabra en inglés, exactamente una de: music, theater, art, food, fair, sports, family, party, other
+- venue: nombre del recinto o lugar
+- address: calle y número si se conoce, si no déjalo vacío
+- commune: comuna
+- Fecha_de_Inicio: AAAA-MM-DD
+- Fecha_de_Fin: AAAA-MM-DD (igual a la de inicio si es un solo día)
+- Hora: HH:MM, vacío si no se sabe
+- Precio: "Desde $15.000", "Entrada liberada", etc.
+- Gratis: Si o No
+- URL: dirección donde se informa o se compran entradas
+
+Antes de agregar una fila, revisa las filas ya existentes en la pestaña para no duplicar un evento con el mismo título y la misma Fecha_de_Inicio. No borres ni modifiques filas de corridas anteriores, salvo que el evento ya haya terminado hace más de una semana (en ese caso, cambia su Status a Inactive en vez de borrar la fila).
+
+Al terminar, responde solo con un resumen de una línea: cuántos eventos nuevos agregaste por ciudad.
