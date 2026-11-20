@@ -2,6 +2,9 @@
 # Pensado para ejecutarse desde el Programador de tareas de Windows cada 2 días.
 $ErrorActionPreference = "Stop"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
+$projectRoot = Split-Path -Parent $here
+# Claude Code lee los permisos guardados (.claude/settings.json) de la carpeta donde se ejecuta.
+Set-Location $projectRoot
 $prompt = Get-Content -Raw -Path (Join-Path $here "events-prompt.txt")
 $logDir = Join-Path $here "events-logs"
 if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir | Out-Null }
